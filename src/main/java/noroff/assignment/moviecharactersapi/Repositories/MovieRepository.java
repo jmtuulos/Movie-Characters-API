@@ -1,6 +1,6 @@
-package noroff.moviecharactersdb.Repositories;
+package noroff.assignment.moviecharactersapi.Repositories;
 
-import noroff.moviecharactersdb.Models.Movie;
+import noroff.assignment.moviecharactersapi.Models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package noroff.moviecharactersdb.Models;
+package noroff.assignment.moviecharactersapi.Models;
 
 import jakarta.persistence.*;
 

@@ -1,10 +1,8 @@
-package noroff.moviecharactersdb;
+package noroff.assignment.moviecharactersapi;
 
-import noroff.moviecharactersdb.Repositories.CharacterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import noroff.assignment.moviecharactersapi.Repositories.CharacterRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +15,7 @@ public class PgAppRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
     }
 }
 
