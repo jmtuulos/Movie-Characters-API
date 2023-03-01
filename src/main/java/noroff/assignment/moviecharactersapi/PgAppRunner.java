@@ -1,6 +1,6 @@
 package noroff.assignment.moviecharactersapi;
 
-import noroff.assignment.moviecharactersapi.Repositories.CharacterRepository;
+import noroff.assignment.moviecharactersapi.repositories.CharacterRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
