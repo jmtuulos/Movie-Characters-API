@@ -25,5 +25,4 @@ public class Character {
             inverseJoinColumns = {@JoinColumn(name = "character_id")}
     )
     private Set<Movie> movies;
-
 }
