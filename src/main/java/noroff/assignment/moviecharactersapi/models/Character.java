@@ -18,11 +18,6 @@ public class Character {
     private String alias;
     private String gender;
     private String photoUrl;
-    @ManyToMany
-    @JoinTable(
-            name = "movie_characters",
-            joinColumns = {@JoinColumn(name = "movie_id")},
-            inverseJoinColumns = {@JoinColumn(name = "character_id")}
-    )
+    @ManyToMany(mappedBy = "characters")
     private Set<Movie> movies;
 }
