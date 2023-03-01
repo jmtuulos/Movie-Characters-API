@@ -1,7 +1,10 @@
 package noroff.assignment.moviecharactersapi.controllers;
 
-import noroff.assignment.moviecharactersapi.models.Character;
+import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
+import noroff.assignment.moviecharactersapi.mappers.MovieMapper;
 import noroff.assignment.moviecharactersapi.models.Movie;
+import noroff.assignment.moviecharactersapi.models.dtos.CharacterDTO;
+import noroff.assignment.moviecharactersapi.models.dtos.MovieDTO;
 import noroff.assignment.moviecharactersapi.services.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +18,42 @@ import java.util.Collection;
 public class MovieController {
 
     private final MovieService movieService;
+    private final MovieMapper movieMapper;
+    private final CharacterMapper characterMapper;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, MovieMapper movieMapper, CharacterMapper characterMapper) {
+
         this.movieService = movieService;
+        this.movieMapper = movieMapper;
+        this.characterMapper = characterMapper;
     }
 
     @GetMapping // GET: localhost:8080/api/v1/movies
-    public ResponseEntity<Collection<Movie>> getAll() {
-        return ResponseEntity.ok(movieService.findAll());
+    public ResponseEntity<Collection<MovieDTO>> getAll() {
+        Collection<MovieDTO> movies = movieMapper.movieToMovieDto(movieService.findAll());
+        return ResponseEntity.ok(movies);
     }
 
     @GetMapping("{id}") // GET: localhost:8080/api/v1/movies/1
-    public ResponseEntity<Movie> getById(@PathVariable int id) {
-        return ResponseEntity.ok(movieService.findById(id));
+    public ResponseEntity<MovieDTO> getById(@PathVariable int id) {
+        MovieDTO movie = movieMapper.movieToMovieDto(movieService.findById(id));
+        return ResponseEntity.ok(movie);
     }
 
     @PostMapping // POST: localhost:8080/api/v1/movies
-    public ResponseEntity add(@RequestBody Movie movie) {
-        Movie mov = movieService.add(movie);
+    public ResponseEntity add(@RequestBody MovieDTO movieDTO) {
+        Movie movie = movieService.add(movieMapper.movieDtoToMovie(movieDTO));
         //URI location = URI.create("movies/" + mov.getId());
         //return ResponseEntity.created(location).build();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/movies/1
-    public ResponseEntity update(@RequestBody Movie movie, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
         // Validates if body is correct
-        if (id != movie.getId())
+        if (id != movieDTO.getId())
             return ResponseEntity.badRequest().build();
-        movieService.update(movie);
+        movieService.update(movieMapper.movieDtoToMovie(movieDTO));
         return ResponseEntity.noContent().build();
     }
 
@@ -54,8 +64,9 @@ public class MovieController {
     }
 
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
-    public ResponseEntity<Collection<Character>> getAllCharacters(@PathVariable int id) {
-        return ResponseEntity.ok(movieService.getCharacters(id));
+    public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(@PathVariable int id) {
+        Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(movieService.getCharacters(id));
+        return ResponseEntity.ok(characters);
     }
 
     //TODO: updatecharacters
