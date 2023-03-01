@@ -1,22 +1,36 @@
 package noroff.assignment.moviecharactersapi.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
 public class Movie {
-    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "movie_title", length = 100)
     private String title;
+    @Column(name = "movie_genre", length = 100)
     private String genre;
-    private int releaseYear;
+    @Column(name = "published_year")
+    private int year;
     private String director;
-    private String pictureUrl;
+    private String photoUrl;
     private String trailerUrl;
+    @ManyToMany
+    @JoinTable(
+            name = "movie_characters",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "character_id")}
+    )
+    private Set<Character> characters;
 
-    public void setFranchise(Movie m) {
-    }
+    @ManyToOne
+    private Franchise franchise;
+
 }

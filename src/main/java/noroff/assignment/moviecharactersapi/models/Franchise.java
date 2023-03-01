@@ -1,22 +1,22 @@
 package noroff.assignment.moviecharactersapi.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Entity
+@Getter
+@Setter
 public class Franchise {
-    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "franchise_name", length = 100)
     private String name;
     private String description;
+    @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
 
-    public Set<Movie> getMovies() {
-        return movies;
-    }
 }
