@@ -68,7 +68,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Collection<Character> getCharacters(int movieId) {
-        //todo
-        return List.of(new Character[0]);
+        return findById(movieId).getCharacters();
     }
 }

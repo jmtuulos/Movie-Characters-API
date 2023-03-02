@@ -70,8 +70,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Collection<Movie> getMovies(int franchiseId) {
-        //todo
-        return List.of(new Movie[0]);
+        return findById(franchiseId).getMovies();
     }
 
     @Override
