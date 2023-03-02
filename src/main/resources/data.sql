@@ -23,14 +23,17 @@ VALUES
     ('Alan Grant', 'Male', 'Dr. Alan Grant', 'https://example.com/alan-grant.jpg'),
     ('Ian Malcolm', 'Male', 'Dr. Ian Malcolm', 'https://example.com/ian-malcolm.jpg'),
     ('Bruce Wayne', 'Male', 'Bruce Wayne / Batman', 'https://example.com/batman.jpg'),
-    ('The Joker', 'Male', 'The Joker', 'https://example.com/joker');
+    ('The Joker', 'Male', 'The Joker', 'https://example.com/joker'),
+    ('Somebody in Avatar 2', 'N/A', 'Somebody', 'http...');
 
 INSERT INTO movie_characters (movie_id, character_id)
 VALUES
     (1, 1),
     (1, 2),
-    (2, 3),
-    (2, 4),
-    (3, 5),
-    (3, 6);
-
+    (2, 1),
+    (2, 2),
+    (3, 3),
+    (3, 4),
+    (4, 5),
+    (4, 6),
+    (2, 7);
