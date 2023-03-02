@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/franchises")
@@ -55,12 +56,12 @@ public class FranchiseController {
     }
 
     @GetMapping("{id}/movies") // GET: localhost:8080/api/v1/franchises/1/movies
-    public ResponseEntity<Collection<Movie>> getAllMovies(@PathVariable int id) {
+    public ResponseEntity<List<Movie>> getAllMovies(@PathVariable int id) {
         return ResponseEntity.ok(franchiseService.getMovies(id));
     }
 
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/franchises/1/characters
-    public ResponseEntity<Collection<Character>> getAllCharacters(@PathVariable int id) {
+    public ResponseEntity<List<Character>> getAllCharacters(@PathVariable int id) {
         return ResponseEntity.ok(franchiseService.getCharacters(id));
     }
 

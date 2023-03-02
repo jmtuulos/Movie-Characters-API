@@ -11,5 +11,4 @@ import java.util.Optional;
 
 @Repository
 public interface FranchiseRepository extends JpaRepository<Franchise, Integer> {
-
 }
