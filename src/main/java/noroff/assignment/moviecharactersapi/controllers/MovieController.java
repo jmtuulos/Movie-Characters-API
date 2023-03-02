@@ -60,14 +60,12 @@ public class MovieController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
-
     @PutMapping("{movieId}/characters") // PUT: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
         movieService.updateCharacters(movieId, characterIds);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(@PathVariable int id) {
         Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(movieService.getCharacters(id));
         return ResponseEntity.ok(characters);
