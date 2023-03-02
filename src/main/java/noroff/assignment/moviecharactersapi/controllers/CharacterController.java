@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.Collection;
 
 @RestController
@@ -38,14 +37,11 @@ public class CharacterController {
     @PostMapping // POST: localhost:8080/api/v1/characters
     public ResponseEntity add(@RequestBody CharacterDTO characterDTO) {
         Character chara = characterService.add(characterMapper.characterDtoToCharacter(characterDTO));
-        //URI location = URI.create("characters/" + chara.getId());
-        //return ResponseEntity.created(location).build();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/characters/1
     public ResponseEntity update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
-        // Validates if body is correct
         if (id != characterDTO.getId())
             return ResponseEntity.badRequest().build();
         characterService.update(characterMapper.characterDtoToCharacter(characterDTO));
