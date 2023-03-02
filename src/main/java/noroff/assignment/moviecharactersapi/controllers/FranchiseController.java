@@ -51,7 +51,6 @@ public class FranchiseController {
 
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/franchises/1
     public ResponseEntity update(@RequestBody FranchiseDTO franchiseDTO, @PathVariable int id) {
-        // Validates if body is correct
         if (id != franchiseDTO.getId())
             return ResponseEntity.badRequest().build();
         franchiseService.update(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
@@ -66,17 +65,19 @@ public class FranchiseController {
 
     @GetMapping("{id}/movies") // GET: localhost:8080/api/v1/franchises/1/movies
     public ResponseEntity<Collection<MovieDTO>> getAllMovies(@PathVariable int id) {
-
         Collection<MovieDTO> movies = movieMapper.movieToMovieDto(franchiseService.getMovies(id));
         return ResponseEntity.ok(movies);
     }
 
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/franchises/1/characters
     public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(@PathVariable int id) {
-
         Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(franchiseService.getCharacters(id));
         return ResponseEntity.ok(characters);
     }
 
-    //TODO: updatemovies
+    @PutMapping("{id}/movies") // PUT: localhost:8080/api/v1/franchises/1/movies
+    public ResponseEntity updateMovies(@RequestBody int[] characterIds, @PathVariable int movieId) {
+        franchiseService.updateMovies(movieId, characterIds);
+        return ResponseEntity.noContent().build();
+    }
 }
