@@ -56,10 +56,10 @@ public class MovieController {
     public ResponseEntity<Collection<Character>> getAllCharacters(@PathVariable int id) {
         return ResponseEntity.ok(movieService.findById(id).getCharacters());
     }
-    //udpate characters for movie the character id's are sent in the body
-    @PostMapping("{id}/characters/update") // POST: localhost:8080/api/v1/movies/1/characters/update
-    public ResponseEntity updateCharacters(@PathVariable int id, @RequestParam int[] characterIds) {
-        movieService.updateCharacters(id, characterIds);
+
+    @PutMapping("{movieId}/characters") // PUT: localhost:8080/api/v1/movies/1/characters
+    public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
+        movieService.updateCharacters(movieId, characterIds);
         return ResponseEntity.noContent().build();
     }
 
