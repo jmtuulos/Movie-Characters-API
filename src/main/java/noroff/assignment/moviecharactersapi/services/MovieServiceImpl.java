@@ -51,8 +51,6 @@ public class MovieServiceImpl implements MovieService {
     public void deleteById(Integer id) {
         if (movieRepository.existsById(id)) {
             Movie movie = movieRepository.findById(id).get();
-            //movie.getCharacters().forEach(c -> c.setMovie(null));
-            //todo: remove movie from characters
             movieRepository.delete(movie);
         } else
             logger.warn("No movie exists with ID: " + id);
@@ -60,7 +58,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(Movie movie) {
-        //todo: remove movie from characters
         movieRepository.delete(movie);
     }
 

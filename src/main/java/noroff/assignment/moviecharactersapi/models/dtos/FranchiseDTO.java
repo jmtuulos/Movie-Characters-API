@@ -1,7 +1,6 @@
 package noroff.assignment.moviecharactersapi.models.dtos;
 
 import lombok.Data;
-import noroff.assignment.moviecharactersapi.models.Movie;
 
 import java.util.Set;
 

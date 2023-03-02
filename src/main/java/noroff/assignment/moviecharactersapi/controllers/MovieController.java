@@ -47,7 +47,6 @@ public class MovieController {
 
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/movies/1
     public ResponseEntity update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
-        // Validates if body is correct
         if (id != movieDTO.getId())
             return ResponseEntity.badRequest().build();
         movieService.update(movieMapper.movieDtoToMovie(movieDTO));
@@ -65,6 +64,7 @@ public class MovieController {
         movieService.updateCharacters(movieId, characterIds);
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(@PathVariable int id) {
         Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(movieService.getCharacters(id));

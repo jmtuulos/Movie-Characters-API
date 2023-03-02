@@ -1,6 +1,5 @@
 package noroff.assignment.moviecharactersapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,11 +14,10 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "full_name")
-    private String name;
+    private String fullName;
     private String alias;
     private String gender;
     private String photoUrl;
-    @JsonIgnore
     @ManyToMany(mappedBy = "characters")
     private Set<Movie> movies;
 }

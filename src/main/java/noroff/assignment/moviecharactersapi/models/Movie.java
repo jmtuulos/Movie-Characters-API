@@ -1,6 +1,5 @@
 package noroff.assignment.moviecharactersapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +22,7 @@ public class Movie {
     private String director;
     private String photoUrl;
     private String trailerUrl;
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "movie_characters",
@@ -34,5 +33,4 @@ public class Movie {
 
     @ManyToOne
     private Franchise franchise;
-
 }

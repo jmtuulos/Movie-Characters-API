@@ -3,6 +3,7 @@ package noroff.assignment.moviecharactersapi.services;
 import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.Movie;
 import noroff.assignment.moviecharactersapi.models.Character;
+
 import java.util.List;
 import java.util.Set;
 
