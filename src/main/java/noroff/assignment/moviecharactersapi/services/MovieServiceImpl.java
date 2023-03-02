@@ -72,4 +72,8 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(movie);
     }
 
+    @Override
+    public Collection<Character> getCharacters(int movieId) {
+        return findById(movieId).getCharacters();
+    }
 }

@@ -72,8 +72,8 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public List<Movie> getMovies(int franchiseId) {
-        return franchiseRepository.findById(franchiseId).get().getMovies().stream().toList();
+    public Collection<Movie> getMovies(int franchiseId) {
+        return findById(franchiseId).getMovies();
     }
 
     @Override

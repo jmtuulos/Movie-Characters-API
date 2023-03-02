@@ -10,5 +10,5 @@ public class FranchiseDTO {
     private int id;
     private String name;
     private String description;
-    private Set<Movie> movies;
+    private Set<Integer> movies;
 }

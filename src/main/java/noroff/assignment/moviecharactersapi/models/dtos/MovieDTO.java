@@ -15,6 +15,6 @@ public class MovieDTO {
     private String director;
     private String photoUrl;
     private String trailerUrl;
-    private Set<Character> characters;
-    private Franchise franchise;
+    private Set<Integer> characters;
+    private Integer franchise;
 }

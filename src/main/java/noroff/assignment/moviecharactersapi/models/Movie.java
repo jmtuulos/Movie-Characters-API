@@ -19,7 +19,7 @@ public class Movie {
     @Column(name = "movie_genre", length = 100)
     private String genre;
     @Column(name = "published_year")
-    private int year;
+    private Integer year;
     private String director;
     private String photoUrl;
     private String trailerUrl;
