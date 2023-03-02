@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.Collection;
 
 @RestController
@@ -57,9 +56,9 @@ public class MovieController {
     public ResponseEntity<Collection<Character>> getAllCharacters(@PathVariable int id) {
         return ResponseEntity.ok(movieService.findById(id).getCharacters());
     }
-
-    @GetMapping("{id}/characters/update/{characterIds}") // GET: localhost:8080/api/v1/movies/1/characters/update/1,2,3
-    public ResponseEntity updateCharacters(@PathVariable int id, @PathVariable int[] characterIds) {
+    //udpate characters for movie the character id's are sent in the body
+    @PostMapping("{id}/characters/update") // POST: localhost:8080/api/v1/movies/1/characters/update
+    public ResponseEntity updateCharacters(@PathVariable int id, @RequestParam int[] characterIds) {
         movieService.updateCharacters(id, characterIds);
         return ResponseEntity.noContent().build();
     }
