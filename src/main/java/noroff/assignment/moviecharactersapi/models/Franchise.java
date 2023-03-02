@@ -1,5 +1,6 @@
 package noroff.assignment.moviecharactersapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Franchise {
     @Column(name = "franchise_name", length = 100)
     private String name;
     private String description;
+    @JsonIgnore
     @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
 
