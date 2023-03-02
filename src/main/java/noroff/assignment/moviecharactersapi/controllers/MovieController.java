@@ -55,9 +55,13 @@ public class MovieController {
 
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity<Collection<Character>> getAllCharacters(@PathVariable int id) {
-        return ResponseEntity.ok(movieService.getCharacters(id));
+        return ResponseEntity.ok(movieService.findById(id).getCharacters());
     }
 
-    //TODO: updatecharacters
+    @GetMapping("{id}/characters/update/{characterIds}") // GET: localhost:8080/api/v1/movies/1/characters/update/1,2,3
+    public ResponseEntity updateCharacters(@PathVariable int id, @PathVariable int[] characterIds) {
+        movieService.updateCharacters(id, characterIds);
+        return ResponseEntity.noContent().build();
+    }
 
 }
