@@ -27,20 +27,17 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<Character> findAll() {
-        List<Character> chars = characterRepository.findAll();
-        return chars;
+        return characterRepository.findAll();
     }
 
     @Override
     public Character add(Character character) {
-        Character chara = characterRepository.save(character);
-        return chara;
+        return characterRepository.save(character);
     }
 
     @Override
     public Character update(Character character) {
-        Character chara = characterRepository.save(character);
-        return chara;
+        return characterRepository.save(character);
     }
 
     @Override
@@ -48,8 +45,6 @@ public class CharacterServiceImpl implements CharacterService {
     public void deleteById(Integer id) {
         if (characterRepository.existsById(id)) {
             Character chara = characterRepository.findById(id).get();
-            //char.getMovies().forEach(s -> s.setCharacter(null));
-            //todo: remove character from movies
             characterRepository.delete(chara);
         } else
             logger.warn("No character exists with ID: " + id);

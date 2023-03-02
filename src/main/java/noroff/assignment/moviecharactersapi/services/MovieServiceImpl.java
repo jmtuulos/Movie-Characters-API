@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -28,28 +27,23 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Collection<Movie> findAll() {
-        List<Movie> movies = movieRepository.findAll();
-        return movies;
+        return movieRepository.findAll();
     }
 
     @Override
     public Movie add(Movie entity) {
-        Movie movie = movieRepository.save(entity);
-        return movie;
+        return movieRepository.save(entity);
     }
 
     @Override
     public Movie update(Movie entity) {
-        Movie movie = movieRepository.save(entity);
-        return movie;
+        return movieRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
         if (movieRepository.existsById(id)) {
             Movie movie = movieRepository.findById(id).get();
-            //movie.getCharacters().forEach(c -> c.setMovie(null));
-            //todo: remove movie from characters
             movieRepository.delete(movie);
         } else
             logger.warn("No movie exists with ID: " + id);
@@ -57,7 +51,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(Movie movie) {
-        //todo: remove movie from characters
         movieRepository.delete(movie);
     }
 
