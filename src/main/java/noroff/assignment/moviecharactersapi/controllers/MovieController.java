@@ -43,8 +43,6 @@ public class MovieController {
     @PostMapping // POST: localhost:8080/api/v1/movies
     public ResponseEntity add(@RequestBody MovieDTO movieDTO) {
         Movie movie = movieService.add(movieMapper.movieDtoToMovie(movieDTO));
-        //URI location = URI.create("movies/" + mov.getId());
-        //return ResponseEntity.created(location).build();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -69,6 +67,10 @@ public class MovieController {
         return ResponseEntity.ok(characters);
     }
 
-    //TODO: updatecharacters
+    @PutMapping("{id}/characters") // PUT: localhost:8080/api/v1/movies/1/characters
+    public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
+        movieService.updateCharacters(movieId, characterIds);
+        return ResponseEntity.noContent().build();
+    }
 
 }
