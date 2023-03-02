@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/franchises")
@@ -64,6 +65,7 @@ public class FranchiseController {
     }
 
     @GetMapping("{id}/movies") // GET: localhost:8080/api/v1/franchises/1/movies
+
     public ResponseEntity<Collection<MovieDTO>> getAllMovies(@PathVariable int id) {
         Collection<MovieDTO> movies = movieMapper.movieToMovieDto(franchiseService.getMovies(id));
         return ResponseEntity.ok(movies);

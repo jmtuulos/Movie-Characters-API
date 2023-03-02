@@ -4,7 +4,9 @@ import noroff.assignment.moviecharactersapi.customexceptions.FranchiseNotFoundEx
 import noroff.assignment.moviecharactersapi.models.Character;
 import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.Movie;
+import noroff.assignment.moviecharactersapi.repositories.CharacterRepository;
 import noroff.assignment.moviecharactersapi.repositories.FranchiseRepository;
+import noroff.assignment.moviecharactersapi.repositories.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FranchiseServiceImpl implements FranchiseService {
@@ -74,8 +77,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public Collection<Character> getCharacters(int franchiseId) {
-        //todo
-        return List.of(new Character[0]);
+    public List<Character> getCharacters(int franchiseId) {
+        return franchiseRepository.findById(franchiseId).get().getMovies().stream().flatMap(m -> m.getCharacters().stream()).distinct().toList();
     }
 }
