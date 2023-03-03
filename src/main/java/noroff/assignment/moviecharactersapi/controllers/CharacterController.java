@@ -72,12 +72,14 @@ public class CharacterController {
                             description = "Character added",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "409", description = "Character already exists")
+                    @ApiResponse(responseCode = "400", description = "Bad request",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+                    @ApiResponse(responseCode = "409", description = "Character already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/characters
-    public ResponseEntity add(@RequestBody CharacterDTO characterDTO) {
+    public ResponseEntity<?> add(@RequestBody CharacterDTO characterDTO) {
         characterService.add(characterMapper.characterDtoToCharacter(characterDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -90,14 +92,15 @@ public class CharacterController {
                             description = "Character updated",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request"),
+                    @ApiResponse(responseCode = "400", description = "Bad request",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
                     @ApiResponse(responseCode = "404",
                             description = "Character not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/characters/1
-    public ResponseEntity update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
+    public ResponseEntity<?> update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
         if (id != characterDTO.getId())
             return ResponseEntity.badRequest().build();
         characterService.update(characterMapper.characterDtoToCharacter(characterDTO));
@@ -117,7 +120,7 @@ public class CharacterController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/characters/1
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         characterService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

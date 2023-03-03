@@ -1,7 +1,6 @@
 package noroff.assignment.moviecharactersapi.services;
 
 import noroff.assignment.moviecharactersapi.customexceptions.FranchiseNotFoundException;
-import noroff.assignment.moviecharactersapi.customexceptions.MovieNotFoundException;
 import noroff.assignment.moviecharactersapi.models.Character;
 import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.Movie;
@@ -31,7 +30,11 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public Franchise findById(Integer id) {
         return franchiseRepository.findById(id)
-                .orElseThrow(() -> new FranchiseNotFoundException(id));
+                .orElseThrow(() -> {
+                            logger.warn("No franchise exists with ID: " + id);
+                            return new FranchiseNotFoundException(id);
+                        }
+                );
     }
 
     @Override
@@ -52,12 +55,9 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        if (franchiseRepository.existsById(id)) {
-            Franchise franchise = franchiseRepository.findById(id).get();
+            Franchise franchise = findById(id);
             franchise.getMovies().forEach(m -> m.setFranchise(null));
             franchiseRepository.delete(franchise);
-        } else
-            logger.warn("No franchise exists with ID: " + id);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public void updateMovies(int franchiseId, int[] movieId) {
-        Franchise franchise = franchiseRepository.findById(franchiseId).orElseThrow(() -> new MovieNotFoundException(franchiseId));
+        Franchise franchise = findById(franchiseId);
         List<Movie> movies = movieRepository.findAllById(Arrays.stream(movieId).boxed().collect(Collectors.toList()));
         for (Movie m : movies) {
             m.setFranchise(franchise);
@@ -83,6 +83,6 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public List<Character> getCharacters(int franchiseId) {
-        return franchiseRepository.findById(franchiseId).get().getMovies().stream().flatMap(m -> m.getCharacters().stream()).distinct().toList();
+        return findById(franchiseId).getMovies().stream().flatMap(m -> m.getCharacters().stream()).distinct().toList();
     }
 }

@@ -29,7 +29,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie findById(Integer id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new MovieNotFoundException(id));
+                .orElseThrow(() -> {
+                            logger.warn("No movie exists with ID: " + id);
+                            return new MovieNotFoundException(id);
+                        }
+                );
     }
 
     @Override
@@ -49,11 +53,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteById(Integer id) {
-        if (movieRepository.existsById(id)) {
-            Movie movie = movieRepository.findById(id).get();
+            Movie movie = findById(id);
             movieRepository.delete(movie);
-        } else
-            logger.warn("No movie exists with ID: " + id);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void updateCharacters(int movieId, int[] characterId) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException(movieId));
+        Movie movie = findById(movieId);
         List<Character> characters = characterRepository.findAllById(Arrays.stream(characterId).boxed().collect(Collectors.toList()));
         movie.setCharacters(new HashSet<>(characters));
         movieRepository.save(movie);

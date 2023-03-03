@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Set;
 
+/**
+ * DTO includes all Character columns, relations minimized to include just their id.
+ */
 @Data
 public class CharacterDTO {
     private int id;

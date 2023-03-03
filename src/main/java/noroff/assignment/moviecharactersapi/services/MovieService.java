@@ -13,5 +13,11 @@ public interface MovieService extends CrudService<Movie, Integer> {
      * @param characterIds Array of character IDs to add to the movie
      */
     void updateCharacters(int movieId, int[] characterIds);
+
+    /**
+     * Gets all characters of a movie
+     * @param movieId ID of the movie
+     * @return collection of characters
+     */
     Collection<Character> getCharacters(int movieId);
 }

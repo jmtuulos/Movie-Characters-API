@@ -76,7 +76,7 @@ public class MovieController {
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/movies
-    public ResponseEntity add(@RequestBody MovieDTO movieDTO) {
+    public ResponseEntity<?> add(@RequestBody MovieDTO movieDTO) {
         movieService.add(movieMapper.movieDtoToMovie(movieDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -90,7 +90,7 @@ public class MovieController {
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/movies/1
-    public ResponseEntity update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
+    public ResponseEntity<?> update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
         if (id != movieDTO.getId())
             return ResponseEntity.badRequest().build();
         movieService.update(movieMapper.movieDtoToMovie(movieDTO));
@@ -105,7 +105,7 @@ public class MovieController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/movies/1
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         movieService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -118,9 +118,9 @@ public class MovieController {
                     @ApiResponse(responseCode = "404", description = "Movie or Characters not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
-    @PatchMapping("{movieId}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
-    public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
-        movieService.updateCharacters(movieId, characterIds);
+    @PatchMapping("{id}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
+    public ResponseEntity<?> updateCharacters(@RequestBody int[] characterIds, @PathVariable int id) {
+        movieService.updateCharacters(id, characterIds);
         return ResponseEntity.noContent().build();
     }
 
