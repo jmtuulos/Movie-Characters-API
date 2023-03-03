@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import noroff.assignment.moviecharactersapi.customexceptions.ApiErrorResponse;
 import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
 import noroff.assignment.moviecharactersapi.mappers.MovieMapper;
-import noroff.assignment.moviecharactersapi.models.Movie;
 import noroff.assignment.moviecharactersapi.models.dtos.CharacterDTO;
 import noroff.assignment.moviecharactersapi.models.dtos.MovieDTO;
 import noroff.assignment.moviecharactersapi.services.MovieService;
@@ -32,6 +31,7 @@ public class MovieController {
         this.movieMapper = movieMapper;
         this.characterMapper = characterMapper;
     }
+
     @Operation(summary = "Get all movies")
     @ApiResponses(
             value = {
@@ -47,6 +47,7 @@ public class MovieController {
         Collection<MovieDTO> movies = movieMapper.movieToMovieDto(movieService.findAll());
         return ResponseEntity.ok(movies);
     }
+
     @Operation(summary = "Get a movie by id")
     @ApiResponses(
             value = {
@@ -73,9 +74,10 @@ public class MovieController {
     )
     @PostMapping // POST: localhost:8080/api/v1/movies
     public ResponseEntity add(@RequestBody MovieDTO movieDTO) {
-        Movie movie = movieService.add(movieMapper.movieDtoToMovie(movieDTO));
+        movieService.add(movieMapper.movieDtoToMovie(movieDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @Operation(summary = "Update a movie")
     @ApiResponses(
             value = {
@@ -91,6 +93,7 @@ public class MovieController {
         movieService.update(movieMapper.movieDtoToMovie(movieDTO));
         return ResponseEntity.noContent().build();
     }
+
     @Operation(summary = "Delete a movie")
     @ApiResponses(
             value = {
@@ -112,7 +115,7 @@ public class MovieController {
                     @ApiResponse(responseCode = "404", description = "Movie or Characters not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
-    @PatchMapping ("{movieId}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
+    @PatchMapping("{movieId}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
         movieService.updateCharacters(movieId, characterIds);
         return ResponseEntity.noContent().build();

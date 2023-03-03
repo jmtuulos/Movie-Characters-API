@@ -10,6 +10,4 @@ import java.util.Optional;
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, Integer> {
     Optional<List<Character>> findAllByMovies_Id(int movieId);
-
-    Optional<List<Character>> findAllByMoviesFranchiseId(int franchiseId);
 }

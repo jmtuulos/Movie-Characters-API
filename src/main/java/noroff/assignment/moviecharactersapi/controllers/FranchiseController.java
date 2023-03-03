@@ -9,7 +9,6 @@ import noroff.assignment.moviecharactersapi.customexceptions.ApiErrorResponse;
 import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
 import noroff.assignment.moviecharactersapi.mappers.FranchiseMapper;
 import noroff.assignment.moviecharactersapi.mappers.MovieMapper;
-import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.dtos.CharacterDTO;
 import noroff.assignment.moviecharactersapi.models.dtos.FranchiseDTO;
 import noroff.assignment.moviecharactersapi.models.dtos.MovieDTO;
@@ -35,6 +34,7 @@ public class FranchiseController {
         this.movieMapper = movieMapper;
         this.characterMapper = characterMapper;
     }
+
     @Operation(summary = "Get all franchises")
     @ApiResponses(
             value = {
@@ -51,6 +51,7 @@ public class FranchiseController {
         Collection<FranchiseDTO> franchises = franchiseMapper.franchiseToFranchiseDto(franchiseService.findAll());
         return ResponseEntity.ok(franchises);
     }
+
     @Operation(summary = "Get franchise by id")
     @ApiResponses(
             value = {
@@ -67,6 +68,7 @@ public class FranchiseController {
         FranchiseDTO franchise = franchiseMapper.franchiseToFranchiseDto(franchiseService.findById(id));
         return ResponseEntity.ok(franchise);
     }
+
     @Operation(summary = "Add a new franchise")
     @ApiResponses(
             value = {
@@ -80,9 +82,10 @@ public class FranchiseController {
     )
     @PostMapping // POST: localhost:8080/api/v1/franchises
     public ResponseEntity add(@RequestBody FranchiseDTO franchiseDTO) {
-        Franchise franchise = franchiseService.add(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
+        franchiseService.add(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @Operation(summary = "Update a franchise")
     @ApiResponses(
             value = {
@@ -101,6 +104,7 @@ public class FranchiseController {
         franchiseService.update(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
         return ResponseEntity.noContent().build();
     }
+
     @Operation(summary = "Delete franchise by id")
     @ApiResponses(
             value = {
@@ -116,6 +120,7 @@ public class FranchiseController {
         franchiseService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
     @Operation(summary = "Get all movies from franchise")
     @ApiResponses(
             value = {
@@ -151,6 +156,7 @@ public class FranchiseController {
         Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(franchiseService.getCharacters(id));
         return ResponseEntity.ok(characters);
     }
+
     @Operation(summary = "Update movies from a franchise")
     @ApiResponses(
             value = {

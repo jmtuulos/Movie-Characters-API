@@ -9,7 +9,6 @@ import noroff.assignment.moviecharactersapi.customexceptions.ApiErrorResponse;
 import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
 import noroff.assignment.moviecharactersapi.models.dtos.CharacterDTO;
 import noroff.assignment.moviecharactersapi.services.CharacterService;
-import noroff.assignment.moviecharactersapi.models.Character;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,7 @@ public class CharacterController {
         this.characterService = characterService;
         this.characterMapper = characterMapper;
     }
+
     @Operation(summary = "Get all characters")
     @ApiResponses(
             value = {
@@ -42,6 +42,7 @@ public class CharacterController {
         Collection<CharacterDTO> characters = characterMapper.characterToCharacterDto(characterService.findAll());
         return ResponseEntity.ok(characters);
     }
+
     @Operation(summary = "Get a character by id")
     @ApiResponses(
             value = {
@@ -59,6 +60,7 @@ public class CharacterController {
         CharacterDTO character = characterMapper.characterToCharacterDto(characterService.findById(id));
         return ResponseEntity.ok(character);
     }
+
     @Operation(summary = "Add a character")
     @ApiResponses(
             value = {
@@ -73,9 +75,10 @@ public class CharacterController {
     )
     @PostMapping // POST: localhost:8080/api/v1/characters
     public ResponseEntity add(@RequestBody CharacterDTO characterDTO) {
-        Character chara = characterService.add(characterMapper.characterDtoToCharacter(characterDTO));
+        characterService.add(characterMapper.characterDtoToCharacter(characterDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @Operation(summary = "Update a character")
     @ApiResponses(
             value = {
@@ -97,6 +100,7 @@ public class CharacterController {
         characterService.update(characterMapper.characterDtoToCharacter(characterDTO));
         return ResponseEntity.noContent().build();
     }
+
     @Operation(summary = "Delete a character")
     @ApiResponses(
             value = {

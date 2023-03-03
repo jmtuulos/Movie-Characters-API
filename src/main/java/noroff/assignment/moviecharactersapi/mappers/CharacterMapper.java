@@ -35,7 +35,7 @@ public abstract class CharacterMapper {
 
         return source.stream()
                 .map(s -> (new IdDTO(s.getId())))
-                        .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
     }
 
     @Named("idsToMovies")

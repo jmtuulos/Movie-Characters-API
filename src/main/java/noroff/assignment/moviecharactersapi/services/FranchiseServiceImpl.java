@@ -70,7 +70,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     public void updateMovies(int franchiseId, int[] movieId) {
         Franchise franchise = franchiseRepository.findById(franchiseId).orElseThrow(() -> new MovieNotFoundException(franchiseId));
         List<Movie> movies = movieRepository.findAllById(Arrays.stream(movieId).boxed().collect(Collectors.toList()));
-        for(Movie m:movies){
+        for (Movie m : movies) {
             m.setFranchise(franchise);
         }
         franchiseRepository.save(franchise);
