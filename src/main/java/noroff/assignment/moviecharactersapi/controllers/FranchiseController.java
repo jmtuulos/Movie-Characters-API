@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import noroff.assignment.moviecharactersapi.customexceptions.ApiErrorResponse;
 import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
 import noroff.assignment.moviecharactersapi.mappers.FranchiseMapper;
 import noroff.assignment.moviecharactersapi.mappers.MovieMapper;
@@ -42,7 +43,7 @@ public class FranchiseController {
                             description = "Success",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = FranchiseDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Franchises not found"),
+                    @ApiResponse(responseCode = "404", description = "Franchises not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @GetMapping // GET: localhost:8080/api/v1/franchises
@@ -58,7 +59,7 @@ public class FranchiseController {
                             description = "Success",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = FranchiseDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Franchise not found"),
+                    @ApiResponse(responseCode = "404", description = "Franchise not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @GetMapping("{id}") // GET: localhost:8080/api/v1/franchises/1
@@ -74,7 +75,7 @@ public class FranchiseController {
                             description = "Franchise created",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = FranchiseDTO.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Not able to create a franchise"),
+                    @ApiResponse(responseCode = "400", description = "Not able to create a franchise", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/franchises
@@ -90,7 +91,7 @@ public class FranchiseController {
                             description = "Franchise updated",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = FranchiseDTO.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Not able to update the franchise"),
+                    @ApiResponse(responseCode = "400", description = "Not able to update the franchise", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/franchises/1
@@ -107,7 +108,7 @@ public class FranchiseController {
                             responseCode = "204",
                             description = "Franchise deleted"
                     ),
-                    @ApiResponse(responseCode = "400", description = "Not able to delete the franchise"),
+                    @ApiResponse(responseCode = "400", description = "Not able to delete the franchise", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/franchises/1
@@ -123,7 +124,7 @@ public class FranchiseController {
                             description = "Success",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = MovieDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Franchise not found"),
+                    @ApiResponse(responseCode = "404", description = "Franchise not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @GetMapping("{id}/movies") // GET: localhost:8080/api/v1/franchises/1/movies
@@ -142,7 +143,7 @@ public class FranchiseController {
                     ),
                     @ApiResponse(responseCode = "404", description = "Franchise not found"),
                     @ApiResponse(responseCode = "500", description = "Internal server error"),
-                    @ApiResponse(responseCode = "400", description = "Bad request")
+                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/franchises/1/characters
@@ -158,8 +159,8 @@ public class FranchiseController {
                             description = "Movies updated",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = FranchiseDTO.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "404", description = "Franchise not found"),
+                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Franchise not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
     @PatchMapping("{id}/movies") // PATCH: localhost:8080/api/v1/franchises/1/movies

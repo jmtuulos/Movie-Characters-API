@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import noroff.assignment.moviecharactersapi.customexceptions.ApiErrorResponse;
 import noroff.assignment.moviecharactersapi.mappers.CharacterMapper;
 import noroff.assignment.moviecharactersapi.models.dtos.CharacterDTO;
 import noroff.assignment.moviecharactersapi.services.CharacterService;
@@ -49,7 +50,8 @@ public class CharacterController {
                             description = "Success",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Character not found")
+                    @ApiResponse(responseCode = "404", description = "Character not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @GetMapping("{id}") // GET: localhost:8080/api/v1/characters/1
@@ -83,7 +85,9 @@ public class CharacterController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "404", description = "Character not found")
+                    @ApiResponse(responseCode = "404",
+                            description = "Character not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/characters/1
@@ -101,7 +105,8 @@ public class CharacterController {
                             description = "Character deleted",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Character not found")
+                    @ApiResponse(responseCode = "404", description = "Character not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/characters/1

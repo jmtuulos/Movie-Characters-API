@@ -55,7 +55,7 @@ public class MovieController {
                             description = "Movie found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = MovieDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Movie not found")
+                    @ApiResponse(responseCode = "404", description = "Movie not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @GetMapping("{id}") // GET: localhost:8080/api/v1/movies/1
@@ -68,7 +68,7 @@ public class MovieController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "201", description = "Movie added"),
-                    @ApiResponse(responseCode = "400", description = "Wrong format")
+                    @ApiResponse(responseCode = "400", description = "Wrong format", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/movies
@@ -80,8 +80,8 @@ public class MovieController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "204", description = "Movie updated"),
-                    @ApiResponse(responseCode = "400", description = "Wrong format, MovieId must exist"),
-                    @ApiResponse(responseCode = "404", description = "Movie not found")
+                    @ApiResponse(responseCode = "400", description = "Wrong format, MovieId must exist", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Movie not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/movies/1
@@ -95,7 +95,7 @@ public class MovieController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "204", description = "Movie deleted"),
-                    @ApiResponse(responseCode = "404", description = "Movie not found")
+                    @ApiResponse(responseCode = "404", description = "Movie not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/movies/1
@@ -108,8 +108,8 @@ public class MovieController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "204", description = "Updated characters"),
-                    @ApiResponse(responseCode = "400", description = "Wrong format, MovieId and CharacterIds must exist"),
-                    @ApiResponse(responseCode = "404", description = "Movie or Characters not found")
+                    @ApiResponse(responseCode = "400", description = "Wrong format, MovieId and CharacterIds must exist", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Movie or Characters not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @PatchMapping ("{movieId}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
@@ -125,7 +125,7 @@ public class MovieController {
                     @ApiResponse(responseCode = "200",
                             description = "Found the characters",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))),
-                    @ApiResponse(responseCode = "404", description = "Movie not found")
+                    @ApiResponse(responseCode = "404", description = "Movie not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
             }
     )
     @GetMapping("{id}/characters") // GET: localhost:8080/api/v1/movies/1/characters
