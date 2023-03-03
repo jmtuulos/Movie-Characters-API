@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+/**
+ * API controller handling movie operations on "api/v1/movies"
+ */
 @RestController
 @RequestMapping(path = "api/v1/movies")
 public class MovieController {

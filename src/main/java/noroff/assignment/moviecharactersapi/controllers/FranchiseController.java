@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+/**
+ * API controller handling franchise operations on "api/v1/franchises"
+ */
 @RestController
 @RequestMapping(path = "api/v1/franchises")
 public class FranchiseController {

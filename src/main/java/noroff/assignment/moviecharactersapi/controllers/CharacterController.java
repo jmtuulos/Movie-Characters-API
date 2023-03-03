@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+/**
+ * API controller handling character operations on "api/v1/characters"
+ */
 @RestController
 @RequestMapping(path = "api/v1/characters")
 public class CharacterController {
