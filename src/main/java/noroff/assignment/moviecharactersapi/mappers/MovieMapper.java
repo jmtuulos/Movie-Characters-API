@@ -16,6 +16,12 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class is used to map between Movie and MovieDTO.
+ * It uses MapStruct to generate the implementation.
+ * @see <a href="https://mapstruct.org/">MapStruct</a>
+ */
+
 @Mapper(componentModel = "spring")
 public abstract class MovieMapper {
     @Autowired

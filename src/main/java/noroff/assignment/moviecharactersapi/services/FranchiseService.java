@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface FranchiseService extends CrudService<Franchise, Integer> {
+
+    /**
+     * Updates the movies of a franchise
+     * @param franchiseId The id of the franchise
+     * @param movieIds The ids of the movies
+     */
     void updateMovies(int franchiseId, int[] movieIds);
 
     Set<Movie> getMovies(int franchiseId);

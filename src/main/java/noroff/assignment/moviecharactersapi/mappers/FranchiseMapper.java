@@ -14,6 +14,12 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class is used to map between Franchise and FranchiseDTO.
+ * It uses the MapStruct library to generate the implementation.
+ * @see <a href="https://mapstruct.org/">MapStruct</a>
+ */
+
 @Mapper(componentModel = "spring")
 public abstract class FranchiseMapper {
     @Autowired
