@@ -30,7 +30,11 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public Franchise findById(Integer id) {
         return franchiseRepository.findById(id)
-                .orElseThrow(() -> new FranchiseNotFoundException(id));
+                .orElseThrow(() -> {
+                            logger.warn("No franchise exists with ID: " + id);
+                            return new FranchiseNotFoundException(id);
+                        }
+                );
     }
 
     @Override
@@ -51,12 +55,9 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        if (franchiseRepository.existsById(id)) {
             Franchise franchise = findById(id);
             franchise.getMovies().forEach(m -> m.setFranchise(null));
             franchiseRepository.delete(franchise);
-        } else
-            logger.warn("No franchise exists with ID: " + id);
     }
 
     @Override

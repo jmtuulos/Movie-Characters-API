@@ -29,7 +29,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie findById(Integer id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new MovieNotFoundException(id));
+                .orElseThrow(() -> {
+                            logger.warn("No movie exists with ID: " + id);
+                            return new MovieNotFoundException(id);
+                        }
+                );
     }
 
     @Override
@@ -49,11 +53,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteById(Integer id) {
-        if (movieRepository.existsById(id)) {
             Movie movie = findById(id);
             movieRepository.delete(movie);
-        } else
-            logger.warn("No movie exists with ID: " + id);
     }
 
     @Override

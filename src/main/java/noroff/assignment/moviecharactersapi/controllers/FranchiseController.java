@@ -84,7 +84,7 @@ public class FranchiseController {
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/franchises
-    public ResponseEntity<Void> add(@RequestBody FranchiseDTO franchiseDTO) {
+    public ResponseEntity<?> add(@RequestBody FranchiseDTO franchiseDTO) {
         franchiseService.add(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -101,7 +101,7 @@ public class FranchiseController {
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/franchises/1
-    public ResponseEntity<Void> update(@RequestBody FranchiseDTO franchiseDTO, @PathVariable int id) {
+    public ResponseEntity<?> update(@RequestBody FranchiseDTO franchiseDTO, @PathVariable int id) {
         if (id != franchiseDTO.getId())
             return ResponseEntity.badRequest().build();
         franchiseService.update(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
@@ -119,12 +119,12 @@ public class FranchiseController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/franchises/1
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         franchiseService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Get all movies from franchise")
+    @Operation(summary = "Get all movies from a franchise")
     @ApiResponses(
             value = {
                     @ApiResponse(
@@ -149,8 +149,8 @@ public class FranchiseController {
                             description = "Success",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CharacterDTO.class))
                     ),
-                    @ApiResponse(responseCode = "404", description = "Franchise not found"),
-                    @ApiResponse(responseCode = "500", description = "Internal server error"),
+                    @ApiResponse(responseCode = "404", description = "Franchise not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             }
     )
@@ -160,7 +160,7 @@ public class FranchiseController {
         return ResponseEntity.ok(characters);
     }
 
-    @Operation(summary = "Update movies from a franchise")
+    @Operation(summary = "Update movies in a franchise")
     @ApiResponses(
             value = {
                     @ApiResponse(
@@ -173,7 +173,7 @@ public class FranchiseController {
             }
     )
     @PatchMapping("{id}/movies") // PATCH: localhost:8080/api/v1/franchises/1/movies
-    public ResponseEntity<Void> updateMovies(@RequestBody int[] characterIds, @PathVariable int id) {
+    public ResponseEntity<?> updateMovies(@RequestBody int[] characterIds, @PathVariable int id) {
         franchiseService.updateMovies(id, characterIds);
         return ResponseEntity.noContent().build();
     }

@@ -24,7 +24,11 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public Character findById(Integer id) {
         return characterRepository.findById(id)
-                .orElseThrow(() -> new CharacterNotFoundException(id));
+                .orElseThrow(() -> {
+                            logger.warn("No character exists with ID: " + id);
+                            return new CharacterNotFoundException(id);
+                        }
+                );
     }
 
     @Override
@@ -45,10 +49,7 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        if (characterRepository.existsById(id)) {
-            delete(findById(id));
-        } else
-            logger.warn("No character exists with ID: " + id);
+        delete(findById(id));
     }
 
     @Override

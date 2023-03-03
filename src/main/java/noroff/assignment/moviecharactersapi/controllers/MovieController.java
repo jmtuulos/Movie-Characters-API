@@ -76,7 +76,7 @@ public class MovieController {
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/movies
-    public ResponseEntity<Void> add(@RequestBody MovieDTO movieDTO) {
+    public ResponseEntity<?> add(@RequestBody MovieDTO movieDTO) {
         movieService.add(movieMapper.movieDtoToMovie(movieDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -90,7 +90,7 @@ public class MovieController {
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/movies/1
-    public ResponseEntity<Void> update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
+    public ResponseEntity<?> update(@RequestBody MovieDTO movieDTO, @PathVariable int id) {
         if (id != movieDTO.getId())
             return ResponseEntity.badRequest().build();
         movieService.update(movieMapper.movieDtoToMovie(movieDTO));
@@ -105,7 +105,7 @@ public class MovieController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/movies/1
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         movieService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -119,7 +119,7 @@ public class MovieController {
             }
     )
     @PatchMapping("{id}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
-    public ResponseEntity<Void> updateCharacters(@RequestBody int[] characterIds, @PathVariable int id) {
+    public ResponseEntity<?> updateCharacters(@RequestBody int[] characterIds, @PathVariable int id) {
         movieService.updateCharacters(id, characterIds);
         return ResponseEntity.noContent().build();
     }
