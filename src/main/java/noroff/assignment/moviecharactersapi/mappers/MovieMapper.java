@@ -3,6 +3,7 @@ package noroff.assignment.moviecharactersapi.mappers;
 import noroff.assignment.moviecharactersapi.models.Character;
 import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.Movie;
+import noroff.assignment.moviecharactersapi.models.dtos.IdDTO;
 import noroff.assignment.moviecharactersapi.models.dtos.MovieDTO;
 import noroff.assignment.moviecharactersapi.services.CharacterService;
 import noroff.assignment.moviecharactersapi.services.FranchiseService;
@@ -35,17 +36,18 @@ public abstract class MovieMapper {
     public abstract Movie movieDtoToMovie(MovieDTO movieDTO);
 
     @Named("charactersToIds")
-    Set<Integer> mapCharactersToIds(Set<Character> source) {
+    Set<IdDTO> mapCharactersToIds(Set<Character> source) {
         if (source == null)
             return null;
         return source.stream()
-                .map(s -> s.getId()).collect(Collectors.toSet());
+                .map(s -> (new IdDTO(s.getId())))
+                .collect(Collectors.toSet());
     }
 
     @Named("idsToCharacters")
-    Set<Character> mapIdsToProjects(Set<Integer> id) {
+    Set<Character> mapIdsToProjects(Set<IdDTO> id) {
         return id.stream()
-                .map(i -> characterService.findById(i))
+                .map(i -> characterService.findById(i.getId()))
                 .collect(Collectors.toSet());
     }
 

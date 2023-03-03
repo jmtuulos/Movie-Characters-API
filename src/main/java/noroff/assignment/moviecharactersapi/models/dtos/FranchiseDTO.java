@@ -9,5 +9,5 @@ public class FranchiseDTO {
     private int id;
     private String name;
     private String description;
-    private Set<Integer> movies;
+    private Set<IdDTO> movies;
 }

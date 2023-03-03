@@ -12,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/franchises")
@@ -77,9 +75,9 @@ public class FranchiseController {
         return ResponseEntity.ok(characters);
     }
 
-    @PutMapping("{id}/movies") // PUT: localhost:8080/api/v1/franchises/1/movies
-    public ResponseEntity updateMovies(@RequestBody int[] characterIds, @PathVariable int movieId) {
-        franchiseService.updateMovies(movieId, characterIds);
+    @PatchMapping("{id}/movies") // PATCH: localhost:8080/api/v1/franchises/1/movies
+    public ResponseEntity updateMovies(@RequestBody int[] characterIds, @PathVariable int id) {
+        franchiseService.updateMovies(id, characterIds);
         return ResponseEntity.noContent().build();
     }
 }
