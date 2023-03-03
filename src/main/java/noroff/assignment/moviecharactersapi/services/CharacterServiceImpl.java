@@ -1,7 +1,6 @@
 package noroff.assignment.moviecharactersapi.services;
 
 import noroff.assignment.moviecharactersapi.customexceptions.CharacterNotFoundException;
-import noroff.assignment.moviecharactersapi.customexceptions.MovieNotFoundException;
 import noroff.assignment.moviecharactersapi.models.Movie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,15 +46,9 @@ public class CharacterServiceImpl implements CharacterService {
     @Transactional
     public void deleteById(Integer id) {
         if (characterRepository.existsById(id)) {
-            delete(characterRepository.findById(id).get());
+            delete(findById(id));
         } else
             logger.warn("No character exists with ID: " + id);
-    }
-
-    @Override
-    public List<Character> getCharacters(int movieId) {
-        return characterRepository.findAllByMovies_Id(movieId)
-                .orElseThrow(() -> new MovieNotFoundException(movieId));
     }
 
     @Override

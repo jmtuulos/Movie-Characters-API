@@ -84,7 +84,7 @@ public class FranchiseController {
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/franchises
-    public ResponseEntity add(@RequestBody FranchiseDTO franchiseDTO) {
+    public ResponseEntity<Void> add(@RequestBody FranchiseDTO franchiseDTO) {
         franchiseService.add(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -101,7 +101,7 @@ public class FranchiseController {
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/franchises/1
-    public ResponseEntity update(@RequestBody FranchiseDTO franchiseDTO, @PathVariable int id) {
+    public ResponseEntity<Void> update(@RequestBody FranchiseDTO franchiseDTO, @PathVariable int id) {
         if (id != franchiseDTO.getId())
             return ResponseEntity.badRequest().build();
         franchiseService.update(franchiseMapper.franchiseDtoToFranchise(franchiseDTO));
@@ -119,7 +119,7 @@ public class FranchiseController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/franchises/1
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         franchiseService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -173,7 +173,7 @@ public class FranchiseController {
             }
     )
     @PatchMapping("{id}/movies") // PATCH: localhost:8080/api/v1/franchises/1/movies
-    public ResponseEntity updateMovies(@RequestBody int[] characterIds, @PathVariable int id) {
+    public ResponseEntity<Void> updateMovies(@RequestBody int[] characterIds, @PathVariable int id) {
         franchiseService.updateMovies(id, characterIds);
         return ResponseEntity.noContent().build();
     }

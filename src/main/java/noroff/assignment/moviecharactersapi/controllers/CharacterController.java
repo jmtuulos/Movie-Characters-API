@@ -77,7 +77,7 @@ public class CharacterController {
             }
     )
     @PostMapping // POST: localhost:8080/api/v1/characters
-    public ResponseEntity add(@RequestBody CharacterDTO characterDTO) {
+    public ResponseEntity<Void> add(@RequestBody CharacterDTO characterDTO) {
         characterService.add(characterMapper.characterDtoToCharacter(characterDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -97,7 +97,7 @@ public class CharacterController {
             }
     )
     @PutMapping("{id}") // PUT: localhost:8080/api/v1/characters/1
-    public ResponseEntity update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
+    public ResponseEntity<Void> update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
         if (id != characterDTO.getId())
             return ResponseEntity.badRequest().build();
         characterService.update(characterMapper.characterDtoToCharacter(characterDTO));
@@ -117,7 +117,7 @@ public class CharacterController {
             }
     )
     @DeleteMapping("{id}") // DELETE: localhost:8080/api/v1/characters/1
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         characterService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
