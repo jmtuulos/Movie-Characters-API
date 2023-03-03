@@ -59,7 +59,7 @@ public class MovieController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{movieId}/characters") // PUT: localhost:8080/api/v1/movies/1/characters
+    @PatchMapping ("{movieId}/characters") // PATCH: localhost:8080/api/v1/movies/1/characters
     public ResponseEntity updateCharacters(@RequestBody int[] characterIds, @PathVariable int movieId) {
         movieService.updateCharacters(movieId, characterIds);
         return ResponseEntity.noContent().build();
