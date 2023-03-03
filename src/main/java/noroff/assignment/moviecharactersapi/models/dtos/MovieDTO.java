@@ -13,6 +13,6 @@ public class MovieDTO {
     private String director;
     private String photoUrl;
     private String trailerUrl;
-    private Set<Integer> characters;
+    private Set<IdDTO> characters;
     private Integer franchise;
 }
