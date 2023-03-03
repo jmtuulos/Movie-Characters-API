@@ -1,25 +1,31 @@
 package noroff.assignment.moviecharactersapi.services;
 
 import noroff.assignment.moviecharactersapi.customexceptions.FranchiseNotFoundException;
+import noroff.assignment.moviecharactersapi.customexceptions.MovieNotFoundException;
 import noroff.assignment.moviecharactersapi.models.Character;
 import noroff.assignment.moviecharactersapi.models.Franchise;
 import noroff.assignment.moviecharactersapi.models.Movie;
 import noroff.assignment.moviecharactersapi.repositories.FranchiseRepository;
+import noroff.assignment.moviecharactersapi.repositories.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FranchiseServiceImpl implements FranchiseService {
     private final FranchiseRepository franchiseRepository;
+    private final MovieRepository movieRepository;
     private final Logger logger = LoggerFactory.getLogger(FranchiseServiceImpl.class);
 
-    public FranchiseServiceImpl(FranchiseRepository franchiseRepository) {
+    public FranchiseServiceImpl(FranchiseRepository franchiseRepository, MovieRepository movieRepository) {
         this.franchiseRepository = franchiseRepository;
+        this.movieRepository = movieRepository;
     }
 
     @Override
@@ -30,20 +36,17 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public List<Franchise> findAll() {
-        List<Franchise> franchises = franchiseRepository.findAll();
-        return franchises;
+        return franchiseRepository.findAll();
     }
 
     @Override
     public Franchise add(Franchise entity) {
-        Franchise franchise = franchiseRepository.save(entity);
-        return franchise;
+        return franchiseRepository.save(entity);
     }
 
     @Override
     public Franchise update(Franchise entity) {
-        Franchise franchise = franchiseRepository.save(entity);
-        return franchise;
+        return franchiseRepository.save(entity);
     }
 
     @Override
@@ -65,7 +68,12 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public void updateMovies(int franchiseId, int[] movieId) {
-        //todo
+        Franchise franchise = franchiseRepository.findById(franchiseId).orElseThrow(() -> new MovieNotFoundException(franchiseId));
+        List<Movie> movies = movieRepository.findAllById(Arrays.stream(movieId).boxed().collect(Collectors.toList()));
+        for(Movie m:movies){
+            m.setFranchise(franchise);
+        }
+        franchiseRepository.save(franchise);
     }
 
     @Override
